@@ -2,11 +2,11 @@
 apt-get update
 apt-get install -y nginx nodejs npm
 
-groupadd node-demo
-useradd -d /app -s /bin/false -g node-demo node-demo
+groupadd node-app
+useradd -d /app -s /bin/false -g node-app node-app
 
 mv /tmp/app /app
-chown -R node-demo:node-demo /app
+chown -R node-app:node-app /app
 
 echo 'user www-data;
 worker_processes auto;
@@ -38,13 +38,13 @@ ExecStart=/usr/bin/nodejs /app/index.js
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=node-demo
-User=node-demo
-Group=node-demo
+SyslogIdentifier=node-app
+User=node-app
+Group=node-app
 Environment=NODE_ENV=production
 
 [Install]
-WantedBy=multi-user.target' > /etc/systemd/system/node-demo.service
+WantedBy=multi-user.target' > /etc/systemd/system/node-app.service
 
-systemctl enable node-demo
-systemctl start node-demo
+systemctl enable node-app
+systemctl start node-app
